@@ -1,0 +1,56 @@
+.daniya{
+ width: 100%;
+ height: 100vh;
+    max-width: 500px;
+    max-height: 500px;
+    border:1px solid black;
+}
+.pagal{
+  width: 100%;
+    max-width: 500px;
+    height: 50px;
+}
+
+.rightMessage{
+    float: right;
+    text-align: right;
+
+ 
+}
+.rC{
+    background-color: lightgreen;
+    border-radius: 20px;
+  
+}
+.rP{
+    padding: 20px;
+    margin:10px
+}
+
+
+
+.leftMessage{
+    float: left;
+    text-align: left;
+
+ 
+}
+.lC{
+    background-color: palevioletred;
+    border-radius: 20px;
+  
+}
+.lP{
+    padding: 20px;
+    margin:10px
+}
+
+
+.container{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.child{
+    margin: 0 auto;
+}
