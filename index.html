@@ -34,33 +34,37 @@
 </head>
 
 <body>
+  <div class="ui modal">
+    <div class="header">Note</div>
+    <div class="content">
+      <br>
+      <p><strong>Note: </strong>you can't chat without a name</p>
+      <div class="ui input"><input type="text" class="b-1px-solid" id="nameOfUser">      
+</div>
+<p id="error1" style="display:none;">please fill the input</p>
+    </div>
+<button id="sub">submit</button>
+
+  </div> 
   <div class="container">
     <div class="child">
 
-      <div class="daniya">
-        <div  class="rightMessage">
-            <p  style="margin-bottom: 0;padding: 5px;" class="rP">KASHAN</p>
-          <p class="rightMessage rC rP">
-            AJNSDJKANSJDJANSKDKASNKAJKSNDJ
-          </p>
-        </div>
-
-        <div  class="leftMessage">
-          <p  style="margin-bottom: 0;padding: 5px;" class="rP">KASHAN</p>
-        <p class="rightMessage lC lP">
-          AJNSDJKANSJDJANSKDKASNKAJKSNDJ
-        </p>
+      <div id="daniya" class="daniya">
+        <div id="rightMessageContainer">
+        
       </div>
+      <div id="leftMessageContainer">
+
+
     </div>
 
-      <input class="pagal" /> <button id="sendNow">SEND</button>
-
     </div>
-    </div>
+      <input class="pagal" id="pagal"/> <button id="sendNow">SEND</button>
 
-    <script src="./js/index.js"></script>
+    </div>      
     <script src="./semantic/jquery-3.2.1.min.js"></script>
-    <script src="./semantic/Semantic-UI-CSS-master/semantic.min.js"></script>
+      <script src="./semantic/Semantic-UI-CSS-master/semantic.min.js"></script>
+    <script src="./js/index.js"></script>
 </body>
 
 </html>
