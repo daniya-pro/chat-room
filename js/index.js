@@ -1,61 +1,145 @@
-document.getElementsByTagName("body")[0].style.backgroundSize=`
-${document.getElementsByTagName("body")[0].offsetHeight
-}px`
-//WBIR=when body is loaded 
+function checkingNameInLocalStorage(){  
+         if(!localStorage.getItem("NameOfUser")){
 
-var database = firebase.database();
-i=0
-function WBIR(){
+            $('.ui.name.modal').modal({
+                  closable  : false
+                  }).modal('show')
+             
+         }else{
 
-  var inp=document.getElementById("nameOfUser")
+            $('.ui.name.modal').modal('hide')
 
-if(!localStorage.getItem("userName")){
-
-  $('.ui.modal')
-  .modal('show');
-document.getElementById('sub').addEventListener("click",function(){
-
-var errr=document.getElementById("error1")
-if(inp.value===''){
-errr.style.display="block"
-
-setTimeout(()=>{errr.style.display='none'},1000)
+      }
 }
-else{
+a = false
 
-localStorage.setItem("userName",`${inp.value}`)
-$('.ui.modal')
-.modal('hide');
-}
+function getMessages(){
 
-})  
+      var inp2= document.getElementById('messageInp')
 
-}else{
- var id= new Date().getTime()
-  document.getElementById("sendNow").addEventListener("click",function(){
-  var inp2=document.getElementById("pagal");
-    if(inp2.value !==''){
-      localStorage.setItem("user_Message",inp2.value)
-      localStorage.setItem("IdOfUser",id+"_"+localStorage.getItem("userName"))
+  if(!a){
 
-  var rightmessages=document.getElementById("rightMessageContainer")
-  rightmessages.innerHTML+=`<br> <div  class="rightMessage">
-  <p  style="margin-bottom: 0;padding: 5px;" id='name' class="rP">${localStorage.getItem(`userName`)}</p>
-  <p class="rightMessage rC rP" id="addValue">
-  ${localStorage.getItem('user_Message')}    </p>
-  </div>
-  <br>`
-  firebase.database().ref('/messages/').push({
-  userMessage: localStorage.getItem("user_Message"),
-  name: localStorage.getItem(`userName`),
-  luserId:`${id}_${localStorage.getItem("userName")}`
+      firebase.database().ref('/userData/').on("child_added", function (valuesOfUserData) {
+            a=true
+            console.log('not val',valuesOfUserData.key,'val==',valuesOfUserData.val())
+
+            var chatBox = document.getElementById("chatBox")
+if(localStorage.getItem('IdOfUser')!==valuesOfUserData.val().userId){
+            chatBox.innerHTML += `<br>  <div id="leftMessageContainer">
+            
+            
+            <div  class="leftMessage">
+      <p  style="margin-bottom: 0;padding: 5px;" id='Lname' class="LP">${valuesOfUserData.val().userName}</p>
+      <p class="leftMessage lC lP" id="addValueL">
+      ${valuesOfUserData.val().userMessage.replace(/(<([^>]+)>)/ig, "")}    </p>
+      </div</div>
+      <br>`}else{
+      
+            
+            chatBox.innerHTML += `<div id='${valuesOfUserData.key}'><br>  <div id="rightMessageContainer">
+            
+            
+            <div  class="rightMessage">
+      <p  style="margin-bottom: 0;padding: 5px;" id='Rname' class="rP">${localStorage.getItem("NameOfUser")}</p>
+      <span class="rightMessage rC rP" id="addValueR">
+      ${valuesOfUserData.val().userMessage?.replace(/(<([^>]+)>)/ig, "")} </span>
+      
+      <button>update</button> 
+      <button onclick="deleted('${valuesOfUserData.key}')">delete</button> 
+      </div</div>
+      <br> </div>
+      
+      `  
+
+      }
+
   
-  })
-   
-
-    }
+      scrollchatbox()
   
-  })}
+      //scrollchatbox()
+  
+  
+            });
+  
+      
+
+            
 
 }
-WBIR()
+}
+checkingNameInLocalStorage()
+
+
+document.getElementById('sub').addEventListener('click',submitName)
+
+
+      getMessages()
+
+
+function submitName(){
+      
+var inp= document.getElementById("nameOfUser")
+
+
+
+if(inp.value.trim()===''){
+
+ document.getElementById('error1').style.display='block'
+
+  
+ setTimeout(function(){document.getElementById("error1").display="none"},3000)   
+
+
+
+}  else{
+
+      localStorage.setItem('NameOfUser',inp.value)
+            var id =new Date().getTime()+"_"+localStorage.getItem(`NameOfUser`)
+
+      localStorage.setItem('IdOfUser',id)
+
+      $('.ui.name.modal').modal('hide')
+      getMessages()
+
+     
+}
+}
+
+
+document.getElementById('sendNow').addEventListener('click',sendMessages)
+function sendMessages(){
+
+var inp2= document.getElementById('messageInp')
+if(inp2.value!==''){
+
+      firebase.database().ref('/userData/').push({
+
+            userId: localStorage.getItem('IdOfUser'),
+            userName: localStorage.getItem("NameOfUser"),
+            userMessage: inp2.value
+          })
+          var chatBox = document.getElementById("chatBox")
+
+}
+
+}
+function scrollchatbox(){
+      var y = document.getElementById("chatBox").scrollHeight;
+    console.log(`ScrollTo: ${y} `)
+      document.getElementById("chatBox").scrollTo(0,y)
+    
+      }
+      function deleted(idofmess){
+alert()
+
+                  var adaRef = firebase.database().ref(`userData/${idofmess}`);
+                  adaRef.remove()
+                    .then(function() {
+                      console.log("Remove succeeded.",idofmess)
+                    })
+                    .catch(function(error) {
+                      console.log("Remove failed: " + error.message)
+                    });
+
+
+      }
