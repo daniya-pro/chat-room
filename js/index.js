@@ -26,15 +26,16 @@ function getMessages(){
 
             var chatBox = document.getElementById("chatBox")
 if(localStorage.getItem('IdOfUser')!==valuesOfUserData.val().userId){
-            chatBox.innerHTML += `<br>  <div id="leftMessageContainer">
+            chatBox.innerHTML += `<div id='${valuesOfUserData.key}'> <br> <div id="leftMessageContainer">
             
             
             <div  class="leftMessage">
       <p  style="margin-bottom: 0;padding: 5px;" id='Lname' class="LP">${valuesOfUserData.val().userName}</p>
       <p class="leftMessage lC lP" id="addValueL">
       ${valuesOfUserData.val().userMessage.replace(/(<([^>]+)>)/ig, "")}    </p>
-      </div</div>
-      <br>`}else{
+      </div</div><br>
+      </div>
+       `}else{
       
             
             chatBox.innerHTML += `<div id='${valuesOfUserData.key}'><br>  <div id="rightMessageContainer">
@@ -45,13 +46,12 @@ if(localStorage.getItem('IdOfUser')!==valuesOfUserData.val().userId){
       <span class="rightMessage rC rP" id="addValueR">
       ${valuesOfUserData.val().userMessage?.replace(/(<([^>]+)>)/ig, "")} </span>
       
-      <button>update</button> 
-      <button onclick="deleted('${valuesOfUserData.key}')">delete</button> 
+      <button  onclick="updated('${valuesOfUserData.key}')">update</button> 
+      <button  onclick="deleted('${valuesOfUserData.key}')">delete</button> 
       </div</div>
       <br> </div>
       
-      `  
-
+`
       }
 
   
@@ -144,4 +144,34 @@ function scrollchatbox(){
 
 
       }
-      
+      firebase.database().ref('/userData/').on('child_removed', function(data) {
+var keyOfData=data.key
+console.log(keyOfData)
+document.getElementById(`${keyOfData}`).remove()
+
+
+      });
+      function updated(idofmess){
+$('.ui.updateTheMessage.modal').modal({
+      closable  : false
+      }).modal('show')
+
+
+
+      }
+      document.getElementById('updatingMessage').addEventListener('click',function(){
+      if(document.getElementById('messageAfterUpdate').value===''){
+
+document.getElementById('error2').style.display='block'
+setTimeout(function(){document.getElementById('error2').style.display='none'},1000)
+
+      }else{
+
+            
+            
+      }
+
+    
+
+      })
+//       firebase.database().ref('/userData/-MKPRuhvAZlH2kXcL2dQ/').update({userMessage:"j"})
