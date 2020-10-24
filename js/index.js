@@ -21,6 +21,7 @@ function getMessages(){
 
       firebase.database().ref('/userData/').on("child_added", function (valuesOfUserData) {
             a=true
+            
             console.log('not val',valuesOfUserData.key,'val==',valuesOfUserData.val())
 
             var chatBox = document.getElementById("chatBox")
@@ -130,7 +131,7 @@ function scrollchatbox(){
     
       }
       function deleted(idofmess){
-alert()
+
 
                   var adaRef = firebase.database().ref(`userData/${idofmess}`);
                   adaRef.remove()
@@ -143,3 +144,4 @@ alert()
 
 
       }
+      
