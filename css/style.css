@@ -19,6 +19,20 @@
 
  
 }
+
+.inverted-black{
+
+border: 1px solid black !important;
+color: black !important;
+background-color: transparent !important;
+
+}
+
+.inverted-black:hover{
+    color: white !important;
+    background-color: black !important;
+
+}
 .b-1px-solid{
 border: 1px solid #8e8e8e;
 }
@@ -40,6 +54,12 @@ border: 1px solid #8e8e8e;
     text-align: left;
 
  
+}
+.Cred{
+    color: red;
+
+
+
 }
 .lC{
     background-color: palevioletred;
