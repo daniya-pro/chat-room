@@ -96,7 +96,6 @@ function submitName() {
 
 
       } else {
-alert()
             localStorage.setItem('NameOfUser', inp.value)
             var id = new Date().getTime() + "_" + localStorage.getItem(`NameOfUser`)
 
@@ -104,6 +103,7 @@ alert()
 
             $('.ui.name.modal').modal('hide')
             getMessages()
+            location.reload()
 
 
       }
