@@ -61,6 +61,20 @@ border: 1px solid #8e8e8e;
 
 
 }
+.greenline-image{
+
+    height: 57px !important;
+    top: 1.1px !important;
+    
+}
+
+
+
+.green-line{
+    background-color: greenyellow !important;
+    width: auto !important;
+    height: 60px !important;
+}
 .lC{
     background-color: palevioletred;
     border-radius: 20px;
